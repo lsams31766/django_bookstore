@@ -6,5 +6,15 @@
 </head>
 <body>
 Welcome to the Mystery Books store!
+</br>
+There  
+{% if count  == 0 %}
+ are no books
+{% elif count == 1 %}
+ is 1 book 
+{% else %}
+  are {{ count }} books  
+{% endif %}
+  in the store.
 </body>
 </html>
