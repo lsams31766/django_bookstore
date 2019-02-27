@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from test_app.settings import ACCOUNT_ACTIVATION_DAYS, REGISTRATION_AUTO_LOGIN
-from django.conf.global_settings import DEFAULT_FROM_EMAIL, LOGIN_REDIRECT_URL
+from django.conf.global_settings import DEFAULT_FROM_EMAIL, LOGIN_REDIRECT_URL,\
+    AUTHENTICATION_BACKENDS
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
     'registration',
     'store',
 )
@@ -67,12 +69,19 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'bookstore.wsgi.application'
+
+AUTHENTICATION_BACKENDS = {
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+}
 
 
 # Database
@@ -118,4 +127,8 @@ EMAIL_HOST_PASSWORD = "031766"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "books@mystery.com"
+
+#social auth facebook
+SOCIAL_AUTH_FACEBOOK_KEY = '2217571148506070'
+SOCIAL_AUTH_FACEBOOK_SECRET = '676d490e77af01a92cba54a08b8fb4c9'
 
