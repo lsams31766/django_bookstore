@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 from test_app.settings import ACCOUNT_ACTIVATION_DAYS, REGISTRATION_AUTO_LOGIN
 from django.conf.global_settings import DEFAULT_FROM_EMAIL, LOGIN_REDIRECT_URL,\
-    AUTHENTICATION_BACKENDS
+    AUTHENTICATION_BACKENDS, STATICFILES_FINDERS
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'registration',
     'bootstrap3',
     'bootstrap_themes',
+    'compressor',
     'store',
 )
 
@@ -115,6 +116,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+COMPRESS_ENABLED = True
+STATICFILES_FINDERS = (
+  'django.contrib.staticfiles.finders.FileSystemFinder',
+  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+  'compressor.finders.CompressorFinder',
+)
 
 #registration
 ACCOUNT_ACTIVATION_DAYS = 7 
